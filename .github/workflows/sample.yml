@@ -1,0 +1,44 @@
+name: CI
+
+# Controls when the workflow will run
+on:
+  # 3-11 means when the github action runs
+  push:
+    branches: [ "main" ] # when somebody pushes code on main branch trigger this workflow
+  pull_request:
+    branches: [ "main" ] # or when someone opens up a PR that targets main => trigger this
+
+  # Allows you to run this workflow manually from the Actions tab
+  # if you don't have this you can trigger this workflow ONLY by the triggers above
+  # in almost all workflows you'd want to put it as you'd most probably want to run it first by hand
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# jobs are sequence of steps that can run
+jobs:
+  # This workflow contains a single job called "build"
+  # this is just an id
+  build:
+    name: "Sample build"
+    # The type of runner (the virtual machine) that the job will run on
+    # you can specify the OS the virtual machine will run your code on like windows-latest
+    # the more you run the more GitHub will charge you
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # if you see actions/ that means this comes from GitHub team
+      # pull down all the code related to the repository
+      - name: Checkout repository # this name will show up in GitHub actions steps
+      - uses: actions/checkout@v4
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world! # you can run things like dotnet build
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: | # to run multi-line scripts
+          echo Add other actions to build,
+          echo test, and deploy your project.
