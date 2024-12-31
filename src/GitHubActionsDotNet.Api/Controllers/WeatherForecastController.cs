@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
-    private static readonly string[] Summaries =
+                        private static readonly string[] Summaries =
     [
         "Freezing",
         "Bracing",
