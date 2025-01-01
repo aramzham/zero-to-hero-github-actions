@@ -28,3 +28,8 @@ jobs:
 #        working-directory: src/
         run: dotnet publish src/GitHubActionsDotNet.Api/GitHubActionsDotNet.Api.csproj --configuration Release -o artifacts # publish only api project and output it in artifacts folder
         # src/GitHubActionsDotNet.Api/GitHubActionsDotNet.Api.csproj - usually this is the entry point of your application
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: artifacts/
