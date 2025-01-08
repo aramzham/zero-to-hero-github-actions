@@ -5,14 +5,8 @@ on:
       env:
         required: true
         type: string
-    secrets:
-      AZURE_CLIENT_ID:
-        required: true
-      AZURE_SUBSCRIPTION_ID:
-        required: true
-      AZURE_TENANT_ID:
-        required: true
-        description: "This is azure tenant id"
+# we won't need secrets here as we already provide the environment
+# all the secrets will be taken accordingly
 
 jobs:
   deploy:
