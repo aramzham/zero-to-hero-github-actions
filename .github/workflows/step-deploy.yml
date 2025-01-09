@@ -5,6 +5,12 @@ on:
       env:
         required: true
         type: string
+      resource_group_name:
+        required: true
+        type: string
+      app_service_name:
+        required: true
+        type: string
 # we need the secrets here, but we will inherit them from repository secrets
     secrets:
       AZURE_CLIENT_ID:
@@ -22,6 +28,8 @@ jobs:
     environment: ${{ inputs.env }}
 
     steps:
+      - uses: actions/checkout@v4
+
       - uses: actions/download-artifact@v4
         with:
           name: my-artifact
@@ -34,8 +42,21 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Run Bicep
+        run: |
+            az deployment group create \
+              --name ${{ inputs.env }}-deployment-${{ github.run_number }} \
+              --template-file infrastructure/main.bicep \
+              --resource-group ${{ inputs.resource_group_name }} \
+              --verbose
+
       - name: "Deploy to Azure App service"
         uses: azure/webapps-deploy@v2
         with:
-          app-name: app-github-actions-${{ inputs.env }}
+          app-name: ${{ inputs.app_service_name }}
           package: artifacts2/
+          slot-name: slot
+
+      - name: Swap slots
+        run: |
+          az webapp deployment slot swap -g ${{ inputs.resource_group_name }} -n ${{ inputs.app_service_name }} --slot slot --target-slot production --verbose
