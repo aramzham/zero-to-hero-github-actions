@@ -41,6 +41,8 @@ jobs:
     uses: ./.github/workflows/step-deploy.yml
     with:
       env: dev
+      resource_group_name: rg-dometrain-dev
+      app_service_name: app-github-actions-dev
     secrets: inherit
 
   deploy_prod:
@@ -49,4 +51,6 @@ jobs:
     uses: ./.github/workflows/step-deploy.yml
     with:
       env: prod
+      resource_group_name: rg-dometrain-prod
+      app_service_name: app-github-actions-prod
     secrets: inherit
