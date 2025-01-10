@@ -28,7 +28,7 @@ Infrastructure as code = we don't click around some buttons but create a sort of
 
 Workflow = everything that's in the yaml file
 Triggers = kicks off the workflow
-Jobs = sequence of steps, they run parallelly
+Jobs = sequence of steps, they run parallel
 Steps = individual tasks that run
 Runners = jobs need some sort of VMs to run on
 
